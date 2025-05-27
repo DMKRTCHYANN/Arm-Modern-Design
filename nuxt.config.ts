@@ -7,6 +7,14 @@ export default defineNuxtConfig({
     '~/assets/css/main.css',
     '@fortawesome/fontawesome-free/css/all.min.css'
   ],
+  modules: [
+    'nuxt-aos'
+  ],
+  aos: {
+    duration: 1000,
+    easing: 'ease-in-out',
+    once: true,
+  },
   postcss: {
     plugins: {
       tailwindcss: {},
