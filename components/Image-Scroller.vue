@@ -1,11 +1,11 @@
 <template>
   <div class="cross-flicking-container">
-    <div class="px-[50px] flex justify-between transition-all duration-500 text-white">
+    <div class="flex justify-between transition-all duration-500 text-white lg:px-[55px] px-[16px]">
       <div class="flex flex-col">
         <p class="text-xs leading-[18px] font-bold uppercase tracking-widest mb-1.5">{{ images[currentIndex].title }}</p>
-        <p class="text-5xl font-bold">{{ images[currentIndex].description }}</p>
+        <p class="pb-[30px] font-bold lg:text-5xl text-[26px]">{{ images[currentIndex].description }}</p>
       </div>
-      <div class="text-4xl  font-bold">
+      <div class=" pb-[30px] text-gray-400 flex items-end  font-bold lg:text-6xl text-[26px]">
         {{ images[currentIndex].place }}
       </div>
     </div>
@@ -16,7 +16,7 @@
         @changed="handleChange"
     >
       <div class="flicking-panel" v-for="(image, index) in images" :key="index">
-        <img :src="image.src" class="w-full h-auto object-cover" />
+        <img :src="image.src" class="w-full lg:h-full h-[300px] object-contain" />
       </div>
     </Flicking>
     <div class="content-container">
@@ -32,6 +32,9 @@
 import { ref } from "vue";
 import Flicking from "@egjs/vue3-flicking";
 import "@egjs/vue3-flicking/dist/flicking.css";
+import {AutoPlay} from "@egjs/flicking-plugins";
+
+const plugins = [new AutoPlay({duration: 2000, direction: "NEXT", stopOnHover: false})];
 
 const verticalFlicking = ref(null);
 const currentIndex = ref(0);
@@ -67,10 +70,7 @@ const handleChange = (e) => {
 .cross-flicking-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
   background-color: #141313;
-  min-height: 100vh;
-  padding-bottom: 0;
 }
 
 .flicking-viewport {
@@ -88,7 +88,6 @@ const handleChange = (e) => {
 
 img {
   width: 100%;
-  height: 100%;
   object-fit: cover;
   user-select: none;
   user-drag: none;
@@ -98,5 +97,12 @@ img {
   -ms-user-select: none;
 }
 
-
+@media (max-width: 1024px) {
+  .flicking-viewport{
+    height: 300px;
+  }
+  .flicking-panel{
+    height: 300px;
+  }
+}
 </style>
